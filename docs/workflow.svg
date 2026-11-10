@@ -1,94 +1,110 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="657" viewBox="0 0 760 657"
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="570" viewBox="0 0 860 570"
      role="img" aria-labelledby="title description">
-  <title id="title">Tiny Multi-Agent 실행 워크플로우</title>
-  <desc id="description">lead가 초안을 작성한다. 검토자가 없으면 초안을 반환한다. 검토자가 있으면
-    같은 요청과 초안 발췌를 받아 독립적으로 검토한다. 하나 이상의 검토에 성공하면 lead가 성공한
-    검토만 종합한다. 검토가 모두 실패하면 초안을 반환한다. 초안이나 종합에 실패하면 코드 1로 종료한다.</desc>
+  <title id="title">Tiny Multi-Agent 에이전트 협업 구조</title>
+  <desc id="description">lead와 검토자, 초안, 검토 의견, 최종 답변을 서로 다른 상징으로 표시한
+    협업 맵. lead가 초안을 만들면 여러 검토자가 같은 요청과 초안 발췌를 독립적으로 검토한다.
+    오케스트레이터는 성공한 의견을 모아 lead에 전달한다. lead는 요청, 초안, 의견을 바탕으로 최종 답변을 만든다.</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0 0 10 5 0 10z" fill="#92a8c4"/>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 8 4 0 8z" fill="#93adcb"/>
     </marker>
+    <g id="lens">
+      <circle cx="0" cy="0" r="21" fill="#263855" stroke-width="1.6"/>
+      <circle cx="-2" cy="-2" r="7.5"/>
+      <path d="m3 3 7 7"/>
+    </g>
   </defs>
   <style>
-    text { font-family: "Noto Sans CJK KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; fill: #f1f5fb; }
-    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; fill: #8edeca; }
-    .title { font-size: 27px; font-weight: 700; }
+    text { font-family: "Noto Sans CJK KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; fill: #f4f7fd; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; fill: #8de1cf; }
+    .title { font-size: 29px; font-weight: 700; }
     .label { font-size: 17px; font-weight: 700; }
-    .sub { font-size: 13px; fill: #b9c8dd; }
-    .tag { font-size: 14px; font-weight: 700; fill: #8edeca; }
-    .wire { fill: none; stroke: #92a8c4; stroke-width: 2; stroke-linejoin: round; }
+    .sub { font-size: 14px; fill: #c0cfe3; }
+    .edge-label { font-size: 13px; fill: #bed2e8; }
+    .line { fill: none; stroke: #93adcb; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+    .icon { fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
   </style>
 
-  <rect width="760" height="657" rx="20" fill="#101a2b"/>
-  <text class="eyebrow" x="34" y="30">TINY MULTI-AGENT / WORKFLOW</text>
-  <text class="title" x="34" y="61">실행 워크플로우</text>
-  <text class="sub" x="34" y="83">검토자는 같은 초안을 독립적으로 읽고, lead는 성공한 의견을 모아 종합한다.</text>
+  <rect width="860" height="570" rx="20" fill="#101a2b"/>
+  <text class="eyebrow" x="32" y="31">TINY MULTI-AGENT / COLLABORATION MAP</text>
+  <text class="title" x="32" y="64">에이전트 협업 구조</text>
+  <text class="sub" x="32" y="88">초안은 여러 검토자로 나뉘어 전달되고, 검토 의견은 lead로 모인다.</text>
 
-  <g class="wire" marker-end="url(#arrow)">
-    <path d="M485 136 H536"/>
-    <path d="M261 165 V185"/>
-    <path d="M381 216 H536"/>
-    <path d="M261 244 V276"/>
-    <path d="M261 376 V403"/>
-    <path d="M381 434 H536"/>
-    <path d="M261 462 V496"/>
-    <path d="M485 530 H536"/>
-    <path d="M261 560 V598"/>
+  <rect x="566" y="113" width="256" height="356" rx="16" fill="#17273e" stroke="#5e7595" stroke-dasharray="5 5"/>
+  <text class="eyebrow" x="587" y="141">REVIEW POOL</text>
+  <text class="sub" x="587" y="163">--jobs로 동시 실행 수 제한</text>
+
+  <g class="line" marker-end="url(#arrow)">
+    <path d="M150 172 V197"/>
+    <path d="M210 244 H380"/>
+    <path d="M441 244 H516 V225 H588"/>
+    <path d="M516 244 V348 H588"/>
+    <path d="M771 225 H795 V430 H469"/>
+    <path d="M771 348 H795" marker-end="none"/>
+    <path d="M398 430 H286 V271 H197"/>
+    <path d="M150 327 V405"/>
+  </g>
+  <g class="edge-label" text-anchor="middle">
+    <text x="295" y="230">초안 작성</text>
+    <text x="511" y="209">요청 + 초안 발췌</text>
+    <text x="645" y="417">완료된 검토 결과 수집</text>
+    <text x="338" y="401">성공한 의견</text>
+    <text x="338" y="420">발췌 전달</text>
+    <text x="201" y="375">종합 답변</text>
+    <text x="214" y="395">요청 · 초안 · 의견 반영</text>
   </g>
 
-  <rect x="37" y="107" width="448" height="58" rx="12" fill="#1e3454" stroke="#658ab9"/>
-  <text class="tag" x="54" y="131">01</text>
-  <text class="label" x="85" y="131">초안 작성</text>
-  <text class="sub" x="85" y="152">lead가 원본 요청에 답변</text>
+  <!-- Original user message -->
+  <path d="M95 119h110a11 11 0 0 1 11 11v22a11 11 0 0 1-11 11h-43l-12 9-3-9H95a11 11 0 0 1-11-11v-22a11 11 0 0 1 11-11z"
+        fill="#24364e" stroke="#7a9ab9" stroke-width="1.6"/>
+  <text class="label" x="150" y="147" text-anchor="middle">사용자 요청</text>
 
-  <rect x="540" y="107" width="185" height="58" rx="10" fill="#412b3d" stroke="#b87991"/>
-  <text class="label" x="555" y="131">초안 실패</text>
-  <text class="sub" x="555" y="152">오류 기록 · exit 1</text>
-
-  <path d="M164 188 H358 L381 216 358 244 H164 L141 216z" fill="#2b3652" stroke="#8493ba"/>
-  <text class="label" x="261" y="222" text-anchor="middle">검토자가 있나?</text>
-  <text class="sub" x="405" y="207">없음</text>
-  <text class="sub" x="274" y="265">있음</text>
-
-  <rect x="540" y="187" width="185" height="58" rx="10" fill="#193b3b" stroke="#528d81"/>
-  <text class="label" x="555" y="211">초안 반환</text>
-  <text class="sub" x="555" y="232">단일 모델 · exit 0</text>
-
-  <rect x="37" y="280" width="448" height="96" rx="12" fill="#24365c" stroke="#738cce"/>
-  <text class="tag" x="54" y="305">02</text>
-  <text class="label" x="85" y="305">독립 검토</text>
-  <text class="sub" x="85" y="328">같은 요청과 초안 발췌 · --jobs로 동시 실행 제한</text>
-  <g fill="#182843" stroke="#667faa">
-    <rect x="85" y="339" width="102" height="24" rx="7"/>
-    <rect x="196" y="339" width="102" height="24" rx="7"/>
-    <rect x="307" y="339" width="102" height="24" rx="7"/>
+  <!-- Lead agent -->
+  <path d="M115 200h70l25 44-25 45h-70l-25-45z" fill="#213d48" stroke="#8de1cf" stroke-width="2.3"/>
+  <g class="icon" style="color:#a6f2df">
+    <rect x="129" y="228" width="42" height="34" rx="9"/>
+    <path d="M150 228v-8m-21 25h-5m47 0h5m-32 8h12"/>
+    <circle cx="150" cy="218" r="2"/>
+    <circle cx="142" cy="242" r="1.7" fill="currentColor" stroke="none"/>
+    <circle cx="158" cy="242" r="1.7" fill="currentColor" stroke="none"/>
   </g>
-  <g class="sub" text-anchor="middle">
-    <text x="136" y="356">검토 A</text>
-    <text x="247" y="356">검토 B</text>
-    <text x="358" y="356">추가 검토 …</text>
+  <text class="label" x="150" y="312" text-anchor="middle">lead · 초안 / 종합</text>
+
+  <!-- Draft document -->
+  <g class="icon" style="color:#abd5ff">
+    <path d="M385 204h38l18 18v56h-56z" fill="#203955"/>
+    <path d="M423 204v18h18m-43 14h30m-30 11h30m-30 11h21"/>
   </g>
+  <text class="label" x="413" y="302" text-anchor="middle">초안</text>
 
-  <path d="M164 406 H358 L381 434 358 462 H164 L141 434z" fill="#2b3652" stroke="#8493ba"/>
-  <text class="label" x="261" y="440" text-anchor="middle">성공한 검토가 있나?</text>
-  <text class="sub" x="405" y="425">모두 실패</text>
-  <text class="sub" x="274" y="484">한 건 이상</text>
+  <!-- Independent reviewers -->
+  <rect x="592" y="191" width="179" height="68" rx="28" fill="#243554" stroke="#7895be"/>
+  <rect x="592" y="314" width="179" height="68" rx="28" fill="#243554" stroke="#7895be"/>
+  <g class="icon">
+    <use href="#lens" x="623" y="225" style="color:#c6bcfa"/>
+    <use href="#lens" x="623" y="348" style="color:#abd5ff"/>
+  </g>
+  <text class="label" x="655" y="223">reviewer A</text>
+  <text class="sub" x="655" y="244">독립 검토</text>
+  <text class="label" x="655" y="346">reviewer B</text>
+  <text class="sub" x="655" y="367">독립 검토</text>
 
-  <rect x="540" y="405" width="185" height="58" rx="10" fill="#44372a" stroke="#ba985a"/>
-  <text class="label" x="555" y="429">초안으로 대체</text>
-  <text class="sub" x="555" y="450">degraded · exit 0</text>
+  <!-- Feedback bundle -->
+  <g class="icon" style="color:#d2c1ff">
+    <path d="M416 387h50v61h-50z" fill="#272f4d"/>
+    <path d="M407 395h50v61h-50z" fill="#303458"/>
+    <path d="M398 403h50v61h-50z" fill="#393461"/>
+    <path d="M410 420h26m-26 11h26m-26 11h19"/>
+  </g>
+  <text class="label" x="429" y="491" text-anchor="middle">검토 의견 묶음</text>
 
-  <rect x="37" y="500" width="448" height="60" rx="12" fill="#282f50" stroke="#8e83bd"/>
-  <text class="tag" x="54" y="525">03</text>
-  <text class="label" x="85" y="525">결과 종합</text>
-  <text class="sub" x="468" y="525" text-anchor="end">일부 실패 시 degraded</text>
-  <text class="sub" x="85" y="547">lead가 요청 · 초안 발췌 · 성공한 검토 발췌를 종합</text>
+  <!-- Final answer -->
+  <g class="icon" style="color:#9af1d9">
+    <path d="M124 411h34l18 18v51h-52z" fill="#214144"/>
+    <path d="M158 411v18h18m-39 17 9 9 16-17"/>
+  </g>
+  <text class="label" x="150" y="506" text-anchor="middle">최종 답변</text>
 
-  <rect x="540" y="501" width="185" height="58" rx="10" fill="#412b3d" stroke="#b87991"/>
-  <text class="label" x="555" y="525">종합 실패</text>
-  <text class="sub" x="555" y="546">오류 기록 · exit 1</text>
-
-  <text class="sub" x="274" y="583">종합 성공</text>
-  <rect x="37" y="602" width="448" height="39" rx="10" fill="#193b3b" stroke="#528d81"/>
-  <text class="label" x="54" y="628">최종 답변 · exit 0</text>
+  <path d="M32 526h796" stroke="#405570"/>
+  <text class="sub" x="32" y="550">간선은 workflow.py가 역할 사이에 전달하는 프롬프트와 응답을 나타낸다.</text>
 </svg>

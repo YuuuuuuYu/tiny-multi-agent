@@ -19,11 +19,11 @@ python3 -m tiny_multi_agent --lead mock \
 
 ### 전체 아키텍처
 
-![로컬 CLI 진입점, 오케스트레이터, 제공자 어댑터, 모델 서비스 사이의 연결 구조](docs/architecture.svg)
+![터미널, 오케스트레이터, 제공자 어댑터, 로컬 CLI와 외부 모델 서비스를 연결한 컴포넌트 맵](docs/architecture.svg)
 
-### 실행 워크플로우
+### 에이전트 협업 구조
 
-![초안 작성, 독립 검토, 결과 종합의 실행 순서와 단계별 실패 처리](docs/workflow.svg)
+![lead와 검토자 사이에서 초안과 검토 의견이 전달되고 최종 답변이 만들어지는 협업 맵](docs/workflow.svg)
 
 ## 실제 모델 연결
 

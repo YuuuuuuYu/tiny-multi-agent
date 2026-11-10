@@ -1,75 +1,132 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="535" viewBox="0 0 760 535"
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="550" viewBox="0 0 860 550"
      role="img" aria-labelledby="title description">
-  <title id="title">Tiny Multi-Agent 전체 아키텍처</title>
-  <desc id="description">CLI가 요청과 역할을 받아 workflow.py를 실행한다. workflow.py는 단계마다
-    providers.py를 호출한다. 어댑터는 mock 답변을 생성하거나 로컬 제공자 CLI와 stdin 및 stdout으로
-    통신한다. 실제 CLI는 자체 인증으로 제공자 모델 서비스에 연결한다. 보고서는 진입점이 출력한다.</desc>
+  <title id="title">Tiny Multi-Agent 컴포넌트 아키텍처</title>
+  <desc id="description">터미널 진입점과 오케스트레이터, 제공자 어댑터를 서로 다른 아이콘으로
+    표시한 컴포넌트 맵. 어댑터는 Python에서 모의 응답을 생성하거나 선택한 로컬 CLI와
+    통신한다. 실제 CLI는 로컬 머신 밖의 모델 서비스에 연결한다.</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0 0 10 5 0 10z" fill="#92a8c4"/>
+    <marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 8 4 0 8z" fill="#8caac7"/>
     </marker>
+    <g id="process">
+      <rect x="-24" y="-17" width="48" height="34" rx="6" fill="#203550"/>
+      <path d="M-24-7h48m-33 6 6 5-6 5m12 0h8"/>
+      <circle cx="-16" cy="-12" r="1.4" fill="currentColor" stroke="none"/>
+      <circle cx="-11" cy="-12" r="1.4" fill="currentColor" stroke="none"/>
+    </g>
   </defs>
   <style>
-    text { font-family: "Noto Sans CJK KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; fill: #f1f5fb; }
-    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; fill: #8edeca; }
-    .title { font-size: 27px; font-weight: 700; }
-    .label { font-size: 16px; font-weight: 700; }
-    .sub { font-size: 13px; fill: #b9c8dd; }
-    .code { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 16px; font-weight: 700; }
-    .wire { fill: none; stroke: #92a8c4; stroke-width: 2; stroke-linejoin: round; }
+    text { font-family: "Noto Sans CJK KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; fill: #f4f7fd; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 2px; fill: #8de1cf; }
+    .title { font-size: 29px; font-weight: 700; }
+    .label { font-size: 17px; font-weight: 700; }
+    .sub { font-size: 14px; fill: #c0cfe3; }
+    .edge-label { font-size: 13px; fill: #bed2e8; }
+    .code { font-family: ui-monospace, Consolas, monospace; font-size: 15px; font-weight: 700; }
+    .line { fill: none; stroke: #8caac7; stroke-width: 1.8; stroke-linejoin: round; }
+    .icon { fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   </style>
 
-  <rect width="760" height="535" rx="20" fill="#101a2b"/>
-  <text class="eyebrow" x="34" y="30">TINY MULTI-AGENT / ARCHITECTURE</text>
-  <text class="title" x="34" y="61">전체 아키텍처</text>
-  <text class="sub" x="34" y="83">로컬 Python 프로세스가 실행을 조율하고, 각 CLI가 모델에 연결한다.</text>
+  <rect width="860" height="550" rx="20" fill="#101a2b"/>
+  <text class="eyebrow" x="32" y="31">TINY MULTI-AGENT / SYSTEM MAP</text>
+  <text class="title" x="32" y="64">전체 아키텍처</text>
+  <text class="sub" x="32" y="88">로컬 Python 모듈, CLI 프로세스, 외부 모델 사이의 연결</text>
 
-  <rect x="25" y="103" width="710" height="357" rx="16" fill="#142137" stroke="#506580" stroke-dasharray="5 5"/>
-  <text class="label" x="46" y="129">로컬 머신</text>
+  <rect x="24" y="109" width="652" height="414" rx="16" fill="#152238" stroke="#4f6684" stroke-dasharray="5 5"/>
+  <rect x="694" y="109" width="142" height="414" rx="16" fill="#18263d" stroke="#4f6684" stroke-dasharray="5 5"/>
+  <text class="eyebrow" x="43" y="137">LOCAL</text>
+  <text class="eyebrow" x="765" y="137" text-anchor="middle">EXTERNAL</text>
+  <text class="sub" x="43" y="158">로컬 머신</text>
+  <text class="sub" x="765" y="158" text-anchor="middle">제공자 영역</text>
 
-  <g class="wire" marker-end="url(#arrow)">
-    <path d="M142 201 V230"/>
-    <path d="M201 234 V215 H330 V202"/>
-    <path d="M249 280 H276"/>
-    <path d="M480 280 H507"/>
-    <path d="M610 329 V352 H391 V371"/>
-    <path d="M610 352 H632 V371"/>
-    <path d="M391 435 V483" stroke-dasharray="4 4"/>
+  <g class="line" marker-end="url(#arrow)">
+    <path d="M153 213 H253"/>
+    <path d="M255 235 H155"/>
+    <path d="M381 213 H506"/>
+    <path d="M506 235 H382"/>
+    <path d="M548 311 V327 H112 V374"/>
+    <path d="M564 311 V364"/>
+  </g>
+  <path class="line" d="M650 432 H717" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  <g class="edge-label" text-anchor="middle">
+    <text x="204" y="200">요청 · 옵션</text>
+    <text x="204" y="257">보고서 반환</text>
+    <text x="445" y="200">단계 프롬프트</text>
+    <text x="445" y="257">응답 · 오류</text>
+    <text x="173" y="352">모의 응답 경로</text>
+    <text x="617" y="350">stdin · stdout</text>
+    <text x="683" y="419">모델 호출</text>
   </g>
 
-  <rect x="49" y="146" width="200" height="55" rx="10" fill="#20304a" stroke="#465c7a"/>
-  <text class="label" x="65" y="168">터미널 입력</text>
-  <text class="sub" x="65" y="188">요청 · --lead · --reviewer</text>
+  <!-- Terminal display -->
+  <g class="icon" style="color:#8dd9f6">
+    <rect x="67" y="190" width="86" height="56" rx="8" fill="#1d3b54"/>
+    <path d="M67 204h86m-62 9 9 8-9 8m17 0h15m-13 17v11m-17 0h34"/>
+    <circle cx="76" cy="197" r="1.5" fill="currentColor" stroke="none"/>
+    <circle cx="82" cy="197" r="1.5" fill="currentColor" stroke="none"/>
+  </g>
+  <g text-anchor="middle">
+    <text class="code" x="110" y="281">__main__.py</text>
+    <text class="sub" x="110" y="302">CLI 진입점</text>
+  </g>
 
-  <rect x="280" y="146" width="431" height="55" rx="10" fill="#193b3b" stroke="#528d81"/>
-  <text class="label" x="296" y="168">터미널 출력</text>
-  <text class="sub" x="296" y="188">stdout 답변 · stderr 실행 요약 · --json 전체 보고서</text>
+  <!-- Scheduler hub -->
+  <path d="M277 182h83l21 41-21 42h-83l-22-42z" fill="#213c50" stroke="#79cdbc" stroke-width="2"/>
+  <g class="icon" style="color:#9af1d9">
+    <path d="M318 223 295 206m23 17 23-17m-23 17v23"/>
+    <circle cx="295" cy="206" r="5" fill="#213c50"/>
+    <circle cx="341" cy="206" r="5" fill="#213c50"/>
+    <circle cx="318" cy="246" r="5" fill="#213c50"/>
+    <circle cx="318" cy="223" r="9" fill="#213c50"/>
+  </g>
+  <g text-anchor="middle">
+    <text class="code" x="318" y="283">workflow.py</text>
+    <text class="sub" x="318" y="303">실행 조율 · 상태 수집</text>
+  </g>
 
-  <rect x="49" y="234" width="200" height="95" rx="12" fill="#1e3454" stroke="#658ab9"/>
-  <text class="code" x="65" y="261">__main__.py</text>
-  <text class="label" x="65" y="284">CLI 진입점</text>
-  <text class="sub" x="65" y="306">인자 검증 · 결과 출력</text>
+  <!-- Adapter plug -->
+  <circle cx="554" cy="223" r="43" fill="#332d52" stroke="#aa9ae4" stroke-width="2"/>
+  <g class="icon" style="color:#d2c3ff">
+    <path d="M540 216h28v7a14 14 0 0 1-28 0zm7 0v-12m14 12v-12m-7 33v10"/>
+    <path d="M539 216h30"/>
+  </g>
+  <g text-anchor="middle">
+    <text class="code" x="554" y="283">providers.py</text>
+    <text class="sub" x="554" y="303">CLI 실행 · 출력 해석</text>
+  </g>
 
-  <rect x="280" y="234" width="200" height="95" rx="12" fill="#24365c" stroke="#738cce"/>
-  <text class="code" x="296" y="261">workflow.py</text>
-  <text class="label" x="296" y="284">오케스트레이터</text>
-  <text class="sub" x="296" y="306">단계 조율 · 보고서 조립</text>
+  <!-- Offline mock flask -->
+  <g class="icon" style="color:#8de1cf">
+    <path d="M101 380h22m-17 0v19l-18 28a8 8 0 0 0 7 12h34a8 8 0 0 0 7-12l-18-28v-19" fill="#1c3a40"/>
+    <path d="M98 418h28"/>
+    <circle cx="111" cy="427" r="2" fill="currentColor" stroke="none"/>
+    <circle cx="115" cy="407" r="2" fill="currentColor" stroke="none"/>
+  </g>
+  <g text-anchor="middle">
+    <text class="code" x="112" y="464">mock</text>
+    <text class="sub" x="112" y="485">Python 내부 응답</text>
+  </g>
 
-  <rect x="511" y="234" width="200" height="95" rx="12" fill="#282f50" stroke="#8e83bd"/>
-  <text class="code" x="527" y="261">providers.py</text>
-  <text class="label" x="527" y="284">제공자 어댑터</text>
-  <text class="sub" x="527" y="306">CLI 실행 · 응답 형식 통일</text>
+  <!-- Subprocess group -->
+  <rect x="255" y="369" width="395" height="133" rx="13" fill="#182d46" stroke="#6581a3"/>
+  <text class="label" x="275" y="396">로컬 CLI 프로세스</text>
+  <text class="edge-label" x="631" y="395" text-anchor="end">JSON / JSONL</text>
+  <g class="icon">
+    <use href="#process" x="306" y="435" style="color:#a1d9fb"/>
+    <use href="#process" x="403" y="435" style="color:#f3be9f"/>
+    <use href="#process" x="501" y="435" style="color:#c8b7ff"/>
+    <use href="#process" x="599" y="435" style="color:#8de1cf"/>
+  </g>
+  <g class="code" text-anchor="middle">
+    <text x="306" y="477">codex</text>
+    <text x="403" y="477">claude</text>
+    <text x="501" y="477">gemini</text>
+    <text x="599" y="477">agy</text>
+  </g>
 
-  <text class="sub" x="403" y="368">stdin 요청 · JSON/JSONL 응답</text>
-  <rect x="248" y="375" width="286" height="60" rx="10" fill="#20304a" stroke="#465c7a"/>
-  <text class="label" x="264" y="399">로컬 CLI 프로세스</text>
-  <text class="sub" x="264" y="421">codex · claude · gemini · agy</text>
-
-  <rect x="553" y="375" width="158" height="60" rx="10" fill="#193b3b" stroke="#528d81"/>
-  <text class="code" x="569" y="399">mock</text>
-  <text class="sub" x="569" y="421">로컬 모의 응답</text>
-
-  <text class="sub" x="406" y="475">CLI 자체 인증 · 모델 요청</text>
-  <rect x="248" y="487" width="286" height="31" rx="9" fill="#26324c" stroke="#657c9e"/>
-  <text class="label" x="391" y="508" text-anchor="middle">외부 모델 서비스</text>
+  <!-- External cloud -->
+  <path d="M736 445c-10 0-17-7-17-16 0-8 6-14 14-15 3-11 11-18 22-18 10 0 18 5 22 14 3-1 5-2 8-2 10 0 17 8 17 18s-7 19-18 19z"
+        fill="#243b59" stroke="#a6c9ed" stroke-width="2.5" stroke-linejoin="round"/>
+  <text class="label" x="765" y="471" text-anchor="middle">모델 서비스</text>
+  <text class="sub" x="765" y="493" text-anchor="middle">CLI 자체 인증</text>
 </svg>
