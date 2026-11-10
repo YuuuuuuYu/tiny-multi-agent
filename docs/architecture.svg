@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="535" viewBox="0 0 760 535"
+     role="img" aria-labelledby="title description">
+  <title id="title">Tiny Multi-Agent 전체 아키텍처</title>
+  <desc id="description">CLI가 요청과 역할을 받아 workflow.py를 실행한다. workflow.py는 단계마다
+    providers.py를 호출한다. 어댑터는 mock 답변을 생성하거나 로컬 제공자 CLI와 stdin 및 stdout으로
+    통신한다. 실제 CLI는 자체 인증으로 제공자 모델 서비스에 연결한다. 보고서는 진입점이 출력한다.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 10 5 0 10z" fill="#92a8c4"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: "Noto Sans CJK KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; fill: #f1f5fb; }
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; fill: #8edeca; }
+    .title { font-size: 27px; font-weight: 700; }
+    .label { font-size: 16px; font-weight: 700; }
+    .sub { font-size: 13px; fill: #b9c8dd; }
+    .code { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 16px; font-weight: 700; }
+    .wire { fill: none; stroke: #92a8c4; stroke-width: 2; stroke-linejoin: round; }
+  </style>
+
+  <rect width="760" height="535" rx="20" fill="#101a2b"/>
+  <text class="eyebrow" x="34" y="30">TINY MULTI-AGENT / ARCHITECTURE</text>
+  <text class="title" x="34" y="61">전체 아키텍처</text>
+  <text class="sub" x="34" y="83">로컬 Python 프로세스가 실행을 조율하고, 각 CLI가 모델에 연결한다.</text>
+
+  <rect x="25" y="103" width="710" height="357" rx="16" fill="#142137" stroke="#506580" stroke-dasharray="5 5"/>
+  <text class="label" x="46" y="129">로컬 머신</text>
+
+  <g class="wire" marker-end="url(#arrow)">
+    <path d="M142 201 V230"/>
+    <path d="M201 234 V215 H330 V202"/>
+    <path d="M249 280 H276"/>
+    <path d="M480 280 H507"/>
+    <path d="M610 329 V352 H391 V371"/>
+    <path d="M610 352 H632 V371"/>
+    <path d="M391 435 V483" stroke-dasharray="4 4"/>
+  </g>
+
+  <rect x="49" y="146" width="200" height="55" rx="10" fill="#20304a" stroke="#465c7a"/>
+  <text class="label" x="65" y="168">터미널 입력</text>
+  <text class="sub" x="65" y="188">요청 · --lead · --reviewer</text>
+
+  <rect x="280" y="146" width="431" height="55" rx="10" fill="#193b3b" stroke="#528d81"/>
+  <text class="label" x="296" y="168">터미널 출력</text>
+  <text class="sub" x="296" y="188">stdout 답변 · stderr 실행 요약 · --json 전체 보고서</text>
+
+  <rect x="49" y="234" width="200" height="95" rx="12" fill="#1e3454" stroke="#658ab9"/>
+  <text class="code" x="65" y="261">__main__.py</text>
+  <text class="label" x="65" y="284">CLI 진입점</text>
+  <text class="sub" x="65" y="306">인자 검증 · 결과 출력</text>
+
+  <rect x="280" y="234" width="200" height="95" rx="12" fill="#24365c" stroke="#738cce"/>
+  <text class="code" x="296" y="261">workflow.py</text>
+  <text class="label" x="296" y="284">오케스트레이터</text>
+  <text class="sub" x="296" y="306">단계 조율 · 보고서 조립</text>
+
+  <rect x="511" y="234" width="200" height="95" rx="12" fill="#282f50" stroke="#8e83bd"/>
+  <text class="code" x="527" y="261">providers.py</text>
+  <text class="label" x="527" y="284">제공자 어댑터</text>
+  <text class="sub" x="527" y="306">CLI 실행 · 응답 형식 통일</text>
+
+  <text class="sub" x="403" y="368">stdin 요청 · JSON/JSONL 응답</text>
+  <rect x="248" y="375" width="286" height="60" rx="10" fill="#20304a" stroke="#465c7a"/>
+  <text class="label" x="264" y="399">로컬 CLI 프로세스</text>
+  <text class="sub" x="264" y="421">codex · claude · gemini · agy</text>
+
+  <rect x="553" y="375" width="158" height="60" rx="10" fill="#193b3b" stroke="#528d81"/>
+  <text class="code" x="569" y="399">mock</text>
+  <text class="sub" x="569" y="421">로컬 모의 응답</text>
+
+  <text class="sub" x="406" y="475">CLI 자체 인증 · 모델 요청</text>
+  <rect x="248" y="487" width="286" height="31" rx="9" fill="#26324c" stroke="#657c9e"/>
+  <text class="label" x="391" y="508" text-anchor="middle">외부 모델 서비스</text>
+</svg>

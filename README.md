@@ -15,6 +15,16 @@ python3 -m tiny_multi_agent --lead mock \
 
 `mock`은 로그인과 네트워크가 필요 없다. 같은 명령에 `--jobs 1`을 추가하면 순차 검토, `--jobs 2`를 사용하면 동시 검토다. 두 경우 모두 초안 1회, 검토 2회, 종합 1회를 실행한다. 예제의 인위적인 지연을 기준으로 순차 약 **0.50초**, 병렬 약 **0.30초**가 걸린다.
 
+## 아키텍처와 워크플로우
+
+### 전체 아키텍처
+
+![로컬 CLI 진입점, 오케스트레이터, 제공자 어댑터, 모델 서비스 사이의 연결 구조](docs/architecture.svg)
+
+### 실행 워크플로우
+
+![초안 작성, 독립 검토, 결과 종합의 실행 순서와 단계별 실패 처리](docs/workflow.svg)
+
 ## 실제 모델 연결
 
 사용할 CLI를 설치하고 해당 CLI에서 인증한 뒤 실행한다. `PROVIDER:MODEL` 형식으로 호출할 모델을 지정할 수 있으며, 생략하면 해당 CLI의 기본 모델을 사용한다.
@@ -40,16 +50,6 @@ printf '%s\n' '캐시 무효화 전략을 세 가지로 비교해줘.' \
 Google 개인 계정의 Gemini CLI 로그인은 2026년 6월 18일 종료됐다. 해당 계정으로 Google 모델을 쓰려면 Antigravity CLI의 `agy`를 사용할 수 있다. 실제 모델 호출의 사용량과 과금은 각 CLI에서 선택한 인증과 제공자 정책을 따른다. [Google의 종료 안내](https://developers.google.com/gemini-code-assist/docs/deprecations/code-assist-individuals)
 
 ## 코드 읽는 순서
-
-```mermaid
-flowchart LR
-    Draft["초안 작성"]
-    Review1["독립 검토 A"]
-    Review2["독립 검토 B"]
-    Final["결과 종합"]
-    Draft --> Review1 & Review2
-    Review1 & Review2 --> Final
-```
 
 | 파일 | 확인할 부분 |
 | --- | --- |
